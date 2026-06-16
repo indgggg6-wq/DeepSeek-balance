@@ -31,7 +31,7 @@
 ### 1. 克隆项目
 
 ```bash
-git clone https://github.com/nick-cn/DeepSeek-balance.git
+git clone https://github.com/indgggg6-wq/DeepSeek-balance.git
 cd DeepSeek-balance
 ```
 
