@@ -1,0 +1,5 @@
+{
+    "api_key": "sk-你的DeepSeek-API-Key",
+    "base_url": "https://api.deepseek.com",
+    "poll_interval_minutes": 5
+}
