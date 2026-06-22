@@ -1,5 +1,5 @@
 #!/bin/bash
-# DeepSeek 余额菜单栏应用 - 启动管理脚本
+# DeepSeek 余额 macOS 菜单栏应用 - 启动管理脚本
 # 用法:
 #   ./run.sh start    - 启动应用
 #   ./run.sh stop     - 停止应用
@@ -18,11 +18,12 @@ start() {
 
     echo "启动 DeepSeek 余额菜单栏应用..."
     cd "$APP_DIR"
-    nohup python3 deepseek_balance.py > "$LOG_FILE" 2>&1 &
+    nohup swift DeepSeekBalance.swift > "$LOG_FILE" 2>&1 &
     PID=$!
     echo $PID > "$PID_FILE"
+    sleep 2
     echo "已启动 (PID: $PID)"
-    echo "你应该能在菜单栏看到余额显示了"
+    echo "菜单栏右上角应能看到余额显示了"
 }
 
 stop() {
@@ -36,7 +37,7 @@ stop() {
         fi
     fi
     # fallback: kill by name
-    PIDS=$(pgrep -f "deepseek_balance.py" 2>/dev/null)
+    PIDS=$(pgrep -f "DeepSeekBalance" 2>/dev/null)
     if [ -n "$PIDS" ]; then
         kill $PIDS
         echo "已停止所有相关进程"
@@ -51,11 +52,10 @@ status() {
         PID=$(cat "$PID_FILE")
         if kill -0 "$PID" 2>/dev/null; then
             echo "✅ 运行中 (PID: $PID)"
-            echo "数据库记录数: $(python3 -c "import sqlite3; c=sqlite3.connect('$APP_DIR/data/balance_history.db'); print(c.execute('SELECT COUNT(*) FROM balance_history').fetchone()[0])" 2>/dev/null)"
             return 0
         fi
     fi
-    PIDS=$(pgrep -f "deepseek_balance.py" 2>/dev/null)
+    PIDS=$(pgrep -f "DeepSeekBalance" 2>/dev/null)
     if [ -n "$PIDS" ]; then
         echo "⚠️ 运行中但 PID 文件丢失 (PID: $PIDS)"
     else

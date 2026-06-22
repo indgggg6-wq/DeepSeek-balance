@@ -1,8 +1,8 @@
 # DeepSeek 余额 - macOS 菜单栏应用
 
-在 Mac 菜单栏实时显示 DeepSeek API 余额，每 5 分钟自动更新。
+在 Mac 菜单栏实时显示 DeepSeek API 余额，每 5 分钟自动更新。**原生 Swift + AppKit，零依赖，系统自带即可运行。**
 
-![screenshot](https://img.shields.io/badge/macOS-13%2B-blue) ![python](https://img.shields.io/badge/Python-3.9%2B-green)
+![macOS](https://img.shields.io/badge/macOS-13%2B-blue) ![Swift](https://img.shields.io/badge/Swift-5.0%2B-orange)
 
 ## 效果
 
@@ -26,7 +26,9 @@
 ❌ 退出
 ```
 
-## 安装
+## 安装 & 运行
+
+**无需安装任何依赖**，macOS 自带 Swift 可直接运行。
 
 ### 1. 克隆项目
 
@@ -35,13 +37,7 @@ git clone https://github.com/indgggg6-wq/DeepSeek-balance.git
 cd DeepSeek-balance
 ```
 
-### 2. 安装依赖
-
-```bash
-pip3 install --user -r requirements.txt
-```
-
-### 3. 配置 API Key
+### 2. 配置 API Key
 
 复制配置模板并填入你的 DeepSeek API Key：
 
@@ -61,13 +57,13 @@ cp config.example.json config.json
 
 > **获取 API Key**：[DeepSeek 开发者平台](https://platform.deepseek.com/api_keys)
 
-### 4. 启动
+### 3. 启动
 
 ```bash
 ./run.sh start
 ```
 
-菜单栏右上角即可看到余额。其他命令：
+菜单栏右上角即可看到余额。
 
 ```bash
 ./run.sh stop      # 停止
@@ -75,32 +71,31 @@ cp config.example.json config.json
 ./run.sh status    # 查看状态
 ```
 
-### 5. 开机自启（可选）
+### 4. 开机自启（可选）
 
 ```bash
 cp com.deepseek.balance.plist ~/Library/LaunchAgents/
 launchctl load ~/Library/LaunchAgents/com.deepseek.balance.plist
 ```
 
-## 依赖
+## 技术栈
 
-| 包 | 用途 |
+| 组件 | 说明 |
 |---|---|
-| `rumps` | macOS 菜单栏框架 |
-| `requests` | HTTP 请求 |
-| `pyobjc-core` | OC 桥接 |
-| `pyobjc-framework-Cocoa` | 原生 AppKit |
+| `Swift 5` | 系统自带，无需安装 |
+| `AppKit` (`NSStatusBar`) | 原生菜单栏 API |
+| `URLSession` | HTTP 请求 |
+| `JSONEncoder/Decoder` | 本地数据持久化 |
 
 ## 项目结构
 
 ```
-├── deepseek_balance.py   # 主程序
-├── config.example.json   # 配置模板（可提交）
-├── config.json           # 实际配置（包含 API Key，gitignore）
-├── deepseek.svg          # DeepSeek 官方 SVG logo
-├── icon.png              # 菜单栏图标（从 SVG 生成）
-├── run.sh                # 启动/停止管理脚本
-├── requirements.txt      # Python 依赖
+├── DeepSeekBalance.swift   # 主程序（Swift）
+├── config.example.json     # 配置模板
+├── config.json             # 实际配置（gitignore）
+├── deepseek.svg            # DeepSeek 官方 SVG logo
+├── icon.png                # 菜单栏图标
+├── run.sh                  # 启动管理脚本
 └── com.deepseek.balance.plist  # 开机自启配置
 ```
 
@@ -108,7 +103,7 @@ launchctl load ~/Library/LaunchAgents/com.deepseek.balance.plist
 
 **Q: 菜单栏显示 ⚠️ 或加载不出来？**
 
-检查 API Key 是否正确，点击菜单 → 设置 → 输入新的 API Key。
+点击菜单 → 设置 → 输入新的 API Key。
 
 **Q: 如何修改刷新频率？**
 
@@ -116,4 +111,4 @@ launchctl load ~/Library/LaunchAgents/com.deepseek.balance.plist
 
 **Q: Dock 栏会显示图标吗？**
 
-不会。应用已设置为纯菜单栏模式（`LSUIElement`），不会出现在 Dock 和 Cmd+Tab 切换器中。
+不会。纯菜单栏模式，Dock 和 Cmd+Tab 均不显示。

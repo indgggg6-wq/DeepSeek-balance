@@ -123,16 +123,15 @@ def fetch_balance(api_key, base_url):
 # ============================================================
 class DeepSeekBalanceApp(rumps.App):
     def __init__(self):
-        # 纯菜单栏应用，不显示 Dock 图标
-        NSApplication.sharedApplication().setActivationPolicy_(NSApplicationActivationPolicyAccessory)
-
-        # icon_path = str(APP_DIR / "icon.png")
         super().__init__(
             name="DeepSeekBalance",
             title="---",
             icon=str(APP_DIR / "icon.png"),
             quit_button=None
         )
+        # 纯菜单栏应用，不显示 Dock 图标
+        NSApplication.sharedApplication().setActivationPolicy_(NSApplicationActivationPolicyAccessory)
+
         self.config = load_config()
         self.api_key = self.config.get('api_key', '')
         self.base_url = self.config.get('base_url', 'https://api.deepseek.com')

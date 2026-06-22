@@ -7,8 +7,8 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/usr/bin/python3</string>
-        <string>/Users/nick/Documents/DeepSeek 余额/deepseek_balance.py</string>
+        <string>/usr/bin/swift</string>
+        <string>/Users/nick/Documents/DeepSeek 余额/DeepSeekBalance.swift</string>
     </array>
 
     <key>WorkingDirectory</key>
