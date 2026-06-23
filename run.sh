@@ -18,7 +18,7 @@ start() {
 
     echo "启动 DeepSeek 余额菜单栏应用..."
     cd "$APP_DIR"
-    nohup swift DeepSeekBalance.swift > "$LOG_FILE" 2>&1 &
+    nohup ./DeepSeekBalance > "$LOG_FILE" 2>&1 &
     PID=$!
     echo $PID > "$PID_FILE"
     sleep 2

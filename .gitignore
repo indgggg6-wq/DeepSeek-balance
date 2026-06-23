@@ -26,3 +26,6 @@ build/
 # 临时文件
 *.tmp
 .app.pid
+
+# 编译产物
+DeepSeekBalance
